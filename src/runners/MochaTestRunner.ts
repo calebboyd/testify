@@ -33,14 +33,11 @@ export class MochaTestRunner implements ITestRunnerInterface {
     const environmentVariables = this.configurationProvider
       .environmentVariables;
 
-    const command = `${
+    const command = `cd ${rootPath.uri.fsPath} && ${
       this.path
     } ${fileName} --fgrep="${testName}" ${additionalArguments}`;
 
-    const terminal = this.terminalProvider.get(
-      { env: environmentVariables },
-      rootPath
-    );
+    const terminal = this.terminalProvider.get({ env: environmentVariables });
 
     terminal.sendText(command, true);
     terminal.show(true);

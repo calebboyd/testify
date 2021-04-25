@@ -33,14 +33,11 @@ export class TapTestRunner implements ITestRunnerInterface {
     const environmentVariables = this.configurationProvider
       .environmentVariables;
 
-    const command = `${
+    const command = `cd ${rootPath.uri.fsPath} && ${
       this.path
     } ${fileName} --grep="${testName}" ${additionalArguments}`.trim();
 
-    const terminal = this.terminalProvider.get(
-      { env: environmentVariables },
-      rootPath
-    );
+    const terminal = this.terminalProvider.get({ env: environmentVariables });
 
     terminal.sendText(command, true);
     terminal.show(true);

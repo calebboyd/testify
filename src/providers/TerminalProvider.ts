@@ -1,18 +1,14 @@
-import { Terminal, TerminalOptions, window, WorkspaceFolder } from "vscode";
+import { Terminal, TerminalOptions, window } from "vscode";
 
 export class TerminalProvider {
   private activeTerminal: Terminal = null;
 
-  public get(
-    terminalOptions: TerminalOptions,
-    rootPath: WorkspaceFolder
-  ): Terminal {
+  public get(terminalOptions: TerminalOptions): Terminal {
     if (this.activeTerminal) {
       this.activeTerminal.dispose();
     }
 
     this.activeTerminal = window.createTerminal(terminalOptions);
-    this.activeTerminal.sendText(`cd ${rootPath.uri.fsPath}`, true);
 
     return this.activeTerminal;
   }

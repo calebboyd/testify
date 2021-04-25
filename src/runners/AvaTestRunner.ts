@@ -33,14 +33,13 @@ export class AvaTestRunner implements ITestRunnerInterface {
     const environmentVariables = this.configurationProvider
       .environmentVariables;
 
-    const command = `${this.path} ${this.transformFileName(
+    const command = `cd ${rootPath.uri.fsPath} && ${
+      this.path
+    } ${this.transformFileName(
       fileName
     )} -m "${testName}" ${additionalArguments}`;
 
-    const terminal = this.terminalProvider.get(
-      { env: environmentVariables },
-      rootPath
-    );
+    const terminal = this.terminalProvider.get({ env: environmentVariables });
 
     terminal.sendText(command, true);
     terminal.show(true);
